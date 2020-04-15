@@ -95,6 +95,10 @@ module.exports = async params => {
 	}
 
 	const appId = params.packager.appInfo.info._configuration.appId;
+	console.log(`notarizing for appId: ${appId}`)
+	if (!appId) {
+		throw new Error("No AppId")
+	}
 	const appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`);
 
 	const notarizeOptions = {appBundleId: appId, appPath};
