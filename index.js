@@ -2,7 +2,6 @@
 
 const path = require('path');
 const {notarize} = require('electron-notarize');
-const readPkgUp = require('read-pkg-up');
 // eslint-disable-next-line import/no-unresolved
 const util = require('builder-util');
 
@@ -95,9 +94,7 @@ module.exports = async params => {
 		return;
 	}
 
-	const {packageJson} = readPkgUp.sync();
-	const {appId} = packageJson.build;
-
+	const appId = params.packager.appInfo.info._configuration.appId;
 	const appPath = path.join(params.appOutDir, `${params.packager.appInfo.productFilename}.app`);
 
 	const notarizeOptions = {appBundleId: appId, appPath};
